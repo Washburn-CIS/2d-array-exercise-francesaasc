@@ -5,13 +5,13 @@ public class TicTacToe {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        board = new char[][]{
+        board = new char[][]{       // each char is . (nothing places), X or O
             {'.','.','.'},
             {'.','.','.'},
             {'.','.','.'}};
 
-        char turn = 'X';
-        char winner = '-';
+        char turn = 'X';    // X or O
+        char winner = '-';  // - means no winner, otherwise X or O
         printBoard();
 
         for(int placed=0; placed<9 && winner == '-'; placed++) {
@@ -23,9 +23,9 @@ public class TicTacToe {
 
              // challenge: prevent the turn from advancing if the user entered bad coordinates
 
-
-            board[r][c] = turn;
-            turn = turn == 'X' ? 'O': 'X';
+             // process user's move
+            board[r][c] = turn;               // save move on the board
+            turn = turn == 'X' ? 'O': 'X';    // alternating turns
             printBoard();
             winner = findWinner();
         }
@@ -56,10 +56,20 @@ public class TicTacToe {
             }
         }
 
+        for(int c=0; c<3; c++) {
+            // three-in-a-row vertically
+            if(board[0][c] != '.' && board[0][c] == board[1][c] && board[1][c] == board[2][c]) {
+                return board[0][c];
+            }
+        }
+
         // TODO: three-in-a-row vertically 
 
         // diagonals
         if(board[0][0] != '.' && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+            return board[0][0];
+        }
+        if(board[0][2] != '.' && board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
             return board[0][0];
         }
         // TODO: check other diagonal
